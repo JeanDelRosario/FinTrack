@@ -25,5 +25,5 @@ connection.connect((err) => {
     if (err) throw err;
     console.log('Connected!');
     routes(app, connection);
-    app.listen(3000);
+    app.listen(process.env.PORT);
 });
