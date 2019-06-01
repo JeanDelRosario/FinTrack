@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'fintrack'
+    database: process.env.DATABASE
 });
 connection.connect((err) => {
     if (err) throw err;
