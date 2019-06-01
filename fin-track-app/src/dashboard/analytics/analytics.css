@@ -1,0 +1,10 @@
+#myChart {
+    width: 300;
+    height: 300;
+}
+
+#myChart-container {
+    height: 40%;
+    width: 40%;
+    margin-left: 10%;
+}

@@ -14,7 +14,7 @@ class SignIn extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch('/api/authenticate', {
+        fetch('/api/signIn', {
             method: 'POST',
             body: JSON.stringify(this.state),
             headers: {
@@ -24,7 +24,7 @@ class SignIn extends Component {
             .then(res => {
                 console.log(res.status)
                 if (res.status === 200) {
-                    this.props.history.push('/');
+                    this.props.history.push('/dashboard');
                 } else {
                     const error = new Error(res.error);
                     throw error;

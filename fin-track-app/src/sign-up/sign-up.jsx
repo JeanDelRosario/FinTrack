@@ -30,13 +30,17 @@ class SignUp extends Component {
             headers: {
                 'Content-Type': 'application/json'
             }
-            }).then(res => {
-                res.json();
-            })
+            }).then(res => res.json())
               .catch(err => console.log(err))
               .then(res => {
-                  console.log(res);
-                  this.setState({dbAnswer: res});
+                  if(res.message === 'Duplicated') {
+                      alert('Email already registered.');
+                  } else if (res.message === 'Error') {
+                      alert('There was an error, try again later.');
+                  } else {
+                    this.props.history.push('/signIn');
+                  }
+
                 });
     }
 
