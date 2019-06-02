@@ -64,9 +64,17 @@ class Analytics extends Component {
 
         }else if(e.target.value === "This Month") {
             console.log(new Date().getMonth())
+            console.log('hi')
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
+                
+                console.log( transaction.DATE )
+                console.log( new Date(transaction.DATE))
+                console.log( new Date(transaction.DATE).getMonth())
+
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
             }).groupbySum('CATEGORY', 'AMOUNT')
+            console.log('ho')
+            console.log(this.props.currentMonthExpenses)
             console.log(expenses)
             expensesCard = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
