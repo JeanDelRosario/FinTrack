@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './analytics.css';
-import Chart from 'chart.js';
+import {Pie} from 'react-chartjs-2';
 
 // eslint-disable-next-line no-extend-native
 Array.prototype.groupbySum = function(key, value) {
@@ -44,50 +44,25 @@ class Analytics extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chart: {},
-            expenses: undefined
+            expenses: undefined,
+            myChartData: undefined
         }
     }
 
     componentDidMount() {
         const groupedCurrentMonthExpenses = this.props.currentMonthExpenses.groupbySum('CATEGORY', 'AMOUNT');
 
-        const data = {
+        const myChartData = {
             datasets: [{
                 data: Object.values(groupedCurrentMonthExpenses)
             }],
             labels: Object.keys(groupedCurrentMonthExpenses)
         }
 
-        var ctx = document.getElementById('myChart').getContext('2d');
-        // For a pie chart
-        var PieChart = new Chart(ctx, {
-            type: 'pie',
-            data: data
-        });
+        this.setState({myChartData});
 
-        this.setState({chart: PieChart})
     }
 
-    componentDidUpdate(prevProps) {
-
-        const groupedCurrentMonthExpenses = this.props.currentMonthExpenses.groupbySum('CATEGORY', 'AMOUNT');
-
-        const labels = Object.keys(groupedCurrentMonthExpenses);
-        
-        const data = {
-            datasets: [{
-                data: Object.values(groupedCurrentMonthExpenses),
-                backgroundColor: defaultColors.slice(0, labels.length)
-            }],
-            labels: labels
-        }
-
-        // eslint-disable-next-line react/no-direct-mutation-state
-        this.state.chart.data = data;
-
-        this.state.chart.update();
-    }
 
     myChartChange = (e) => {
         let expenses, expensesCard;
@@ -102,10 +77,11 @@ class Analytics extends Component {
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
         }else if(e.target.value === "This Month") {
+
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
             }).groupbySum('CATEGORY', 'AMOUNT')
-
+            console.log(expenses)
             expensesCard = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
@@ -125,7 +101,7 @@ class Analytics extends Component {
 
         const labels = Object.keys(expenses);
         
-        const data = {
+        const myChartData = {
             datasets: [{
                 data: Object.values(expenses),
                 backgroundColor: defaultColors.slice(0, labels.length)
@@ -133,10 +109,8 @@ class Analytics extends Component {
             labels: labels
         }
 
-        // eslint-disable-next-line react/no-direct-mutation-state
-        this.state.chart.data = data;
+        this.setState({myChartData})
 
-        this.state.chart.update();
     }
 
     render() {
@@ -149,7 +123,8 @@ class Analytics extends Component {
 
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return formatDate(transaction.DATE) >= dateMinus(30)
-            }).reduce((acc, curr) => acc + curr.AMOUNT, 0);
+            }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
+
         }
 
         return (
@@ -164,7 +139,9 @@ class Analytics extends Component {
                     <option value="This Year">This Year</option>
                 </select>
                 <div id="myChart-container">
-                <canvas id="myChart"></canvas>
+                    <Pie
+                        data={this.state.myChartData}
+                    />
                 </div>
 
             </div>
