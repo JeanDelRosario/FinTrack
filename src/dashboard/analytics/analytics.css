@@ -1,10 +1,25 @@
+.charts {
+    display: flex;
+}
+
 #myChart {
     width: 300;
     height: 300;
 }
 
 #myChart-container {
-    height: 40%;
-    width: 40%;
     margin-left: 10%;
+    height: 50%;
+    width: 50%;
+    min-width: 370px;
+    min-height: 370px;
+}
+
+@media only screen and (max-width: 800px) {
+    #myChart-container {
+        margin-left: 0;
+    }
+    .main-div {
+        margin-top: 50px;
+    }
 }

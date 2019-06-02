@@ -1,8 +1,23 @@
+.form-info {
+    display: flex;
+}
+
 .insert-info {
     margin-left: 10%;
 }
 
-.table-header, .table-body {
+.table-header,
+.table-body {
     display: grid;
     grid-template-columns: 100px 200px 150px 500px 50px;
+}
+
+@media only screen and (max-width: 800px) {
+    .insert-info {
+        margin-top: 50px;
+    }
+    .form-info {
+        display: inline-flex;
+        flex-direction: column;
+    }
 }

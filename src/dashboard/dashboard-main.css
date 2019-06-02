@@ -16,8 +16,8 @@
     width: 10%;
     height: 100vh;
     background: black;
-    
 }
+
 .nav-el {
     display: flex;
     align-items: center;
@@ -26,6 +26,18 @@
     height: 3em;
 }
 
-.nav-el:hover {
-    background: yellow;
+@media only screen and (max-width: 800px) {
+    .nav-side {
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100vw;
+        height: 50px;
+    }
+    .nav-el {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        transition: background 0.5s;
+        height: 3em;
+    }
 }

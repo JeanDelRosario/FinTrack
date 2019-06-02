@@ -24,7 +24,7 @@ class SignIn extends Component {
             .then(res => {
                 console.log(res.status)
                 if (res.status === 200) {
-                    this.props.history.push('/dashboard');
+                    this.props.history.push('/dashboard/analytics');
                 } else {
                     const error = new Error(res.error);
                     throw error;

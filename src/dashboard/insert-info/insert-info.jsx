@@ -16,6 +16,13 @@ function formatDate(date) {
 
 class InsertInfo extends Component {
 
+    componentDidMount () {
+        const analyticsNav = document.getElementById("analytics");
+        const insertNav = document.getElementById("insert");
+
+        analyticsNav.style.background = "black";
+        insertNav.style.background = "yellow";
+    }
 
 
 render() {
@@ -37,7 +44,8 @@ render() {
 
     return (
         <div className="insert-info">
-            <form onSubmit={this.props.handleSubmit}>
+            <div id="c">
+            <form className="form-info" onSubmit={this.props.handleSubmit}>
                 <input onChange={this.props.handleTyping}
                     type="date" name="date" placeholder="Date..."
                     value={this.props.date} required/>
@@ -64,7 +72,7 @@ render() {
 
                 <button>Submit</button>
             </form>
-
+            </div>
             <div className="table">
                 <div className="table-header">
                     <div className="table-header-item">Fecha</div>

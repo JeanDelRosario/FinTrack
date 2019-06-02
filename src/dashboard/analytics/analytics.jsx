@@ -63,19 +63,13 @@ class Analytics extends Component {
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
         }else if(e.target.value === "This Month") {
-            console.log(new Date().getUTCMonth())
-            console.log('hi')
+
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 
-                console.log( transaction.DATE )
-                console.log( new Date(transaction.DATE))
-                console.log( new Date(transaction.DATE).getUTCMonth())
 
                 return new Date(transaction.DATE).getUTCMonth() === new Date().getUTCMonth()
             }).groupbySum('CATEGORY', 'AMOUNT')
-            console.log('ho')
-            console.log(this.props.currentMonthExpenses)
-            console.log(expenses)
+
             expensesCard = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getUTCMonth() === new Date().getUTCMonth()
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
@@ -105,6 +99,14 @@ class Analytics extends Component {
 
         this.setState({myChartData})
 
+    }
+
+    componentDidMount () {
+        const analyticsNav = document.getElementById("analytics");
+        const insertNav = document.getElementById("insert");
+
+        analyticsNav.style.background = "yellow";
+        insertNav.style.background = "black";
     }
 
     render() {
@@ -140,7 +142,7 @@ class Analytics extends Component {
 
 
         return (
-            <div>
+            <div className="main-div">
                 <div>
                     <p>Gastos Mes</p>
                     {expenses.toLocaleString()}
@@ -150,12 +152,13 @@ class Analytics extends Component {
                     <option value="This Month">This Month</option>
                     <option value="This Year">This Year</option>
                 </select>
-                <div id="myChart-container">
-                    <Pie
-                        data={this.state.myChartData || myChartData}
-                    />
+                <div className="charts">
+                    <div id="myChart-container">
+                        <Pie
+                            data={this.state.myChartData || myChartData}
+                        />
+                    </div>
                 </div>
-
             </div>
         )
     }

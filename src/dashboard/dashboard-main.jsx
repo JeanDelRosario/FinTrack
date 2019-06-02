@@ -33,7 +33,6 @@ class DashboardMain extends Component {
 
         const inputName = event.target.name;
         const inputValue = event.target.value;
-        console.log(event.target.value)
         this.setState({
             [inputName]: inputValue
         });
@@ -44,7 +43,6 @@ class DashboardMain extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.category)
         fetch('/api/finantial-info', {
             method: 'POST',
             body: JSON.stringify(
@@ -87,7 +85,6 @@ class DashboardMain extends Component {
     }
 
     deleteItem = (event) => {
-        console.log( event.target.id )
         fetch('/api/finantial-info', {
             method: 'DELETE',
             headers: {
@@ -104,12 +101,15 @@ class DashboardMain extends Component {
     }
 
 
+
     renderAnalyticsTab() {
 
         return (<Analytics
             currentMonthExpenses = {this.state.dbFinancialInfo}
 
             getFinancialInfo = {this.getFinancialInfo}
+
+            history={this.props.history}
 
         />)
     }
@@ -122,8 +122,12 @@ class DashboardMain extends Component {
 
                 <div className="dashboard">
                     <nav className="nav-side">
-                        <Link to='/dashboard/insert-info'><div className="nav-el">Insert Info</div></Link>
-                        <Link to='/dashboard/analytics'><div className="nav-el">Analiticas</div></Link>
+                        <div className="nav-el" id="insert" onClick={this.toggleNavColor}>
+                            <Link className="nav-el" to='/dashboard/insert-info'>Insert Info</Link>
+                        </div>
+                        <div className="nav-el" id="analytics" onClick={this.toggleNavColor}>
+                            <Link className="nav-el" to='/dashboard/analytics'>Analiticas</Link>
+                        </div>
                     </nav>
                     <div>
                         <div className="dashboard-banner">
@@ -143,6 +147,8 @@ class DashboardMain extends Component {
                                 handleSubmit = {this.handleSubmit}
                                 getFinancialInfo = {this.getFinancialInfo}
                                 deleteItem = {this.deleteItem}
+
+                                history={this.props.history}
                             />
                             )}
                         />
