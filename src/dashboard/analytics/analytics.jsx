@@ -17,7 +17,7 @@ Array.prototype.groupbySum = function(key, value) {
 
 function formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
+        month = '' + (d.getUTCMonth() + 1),
         day = '' + d.getDate(),
         year = d.getFullYear();
 
@@ -63,21 +63,21 @@ class Analytics extends Component {
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
         }else if(e.target.value === "This Month") {
-            console.log(new Date().getMonth())
+            console.log(new Date().getUTCMonth())
             console.log('hi')
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 
                 console.log( transaction.DATE )
                 console.log( new Date(transaction.DATE))
-                console.log( new Date(transaction.DATE).getMonth())
+                console.log( new Date(transaction.DATE).getUTCMonth())
 
-                return new Date(transaction.DATE).getMonth() === new Date().getMonth()
+                return new Date(transaction.DATE).getUTCMonth() === new Date().getUTCMonth()
             }).groupbySum('CATEGORY', 'AMOUNT')
             console.log('ho')
             console.log(this.props.currentMonthExpenses)
             console.log(expenses)
             expensesCard = this.props.currentMonthExpenses.filter((transaction) => {
-                return new Date(transaction.DATE).getMonth() === new Date().getMonth()
+                return new Date(transaction.DATE).getUTCMonth() === new Date().getUTCMonth()
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
 
