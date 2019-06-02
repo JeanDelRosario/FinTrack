@@ -15,15 +15,13 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
+    connectionLimit: 10,
     host: process.env.HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DATABASE
 })
-connection.connect((err) => {
-    if (err) console.log(err);
-    console.log('Connected!');
-    routes(app, connection);
-    app.listen(process.env.PORT);
-});
+
+routes(app, connection);
+app.listen(process.env.PORT);
