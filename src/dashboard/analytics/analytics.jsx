@@ -49,20 +49,6 @@ class Analytics extends Component {
         }
     }
 
-    componentDidMount() {
-        const groupedCurrentMonthExpenses = this.props.currentMonthExpenses.groupbySum('CATEGORY', 'AMOUNT');
-
-        const myChartData = {
-            datasets: [{
-                data: Object.values(groupedCurrentMonthExpenses)
-            }],
-            labels: Object.keys(groupedCurrentMonthExpenses)
-        }
-
-        this.setState({myChartData});
-
-    }
-
 
     myChartChange = (e) => {
         let expenses, expensesCard;
@@ -81,7 +67,7 @@ class Analytics extends Component {
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
             }).groupbySum('CATEGORY', 'AMOUNT')
-            console.log(expenses)
+
             expensesCard = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
@@ -114,7 +100,9 @@ class Analytics extends Component {
     }
 
     render() {
+
         let expenses = 0;
+        let myChartData;
 
         if( this.state.expenses !== undefined ) {
             expenses = this.state.expenses;
@@ -127,6 +115,22 @@ class Analytics extends Component {
 
         }
 
+        if ( this.props.currentMonthExpenses.length !== 0 ) {
+            const groupedCurrentMonthExpenses = this.props.currentMonthExpenses.groupbySum('CATEGORY', 'AMOUNT');
+
+            const labels = Object.keys(groupedCurrentMonthExpenses);
+    
+            myChartData = {
+                datasets: [{
+                    data: Object.values(groupedCurrentMonthExpenses),
+                    backgroundColor: defaultColors.slice(0, labels.length)
+                }],
+                labels: labels
+            }
+
+        }
+
+        
         return (
             <div>
                 <div>
@@ -140,7 +144,7 @@ class Analytics extends Component {
                 </select>
                 <div id="myChart-container">
                     <Pie
-                        data={this.state.myChartData}
+                        data={this.state.myChartData || myChartData}
                     />
                 </div>
 

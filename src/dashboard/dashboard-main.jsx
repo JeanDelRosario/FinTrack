@@ -15,8 +15,6 @@ class DashboardMain extends Component {
             amount: "",
             description: "",
             dbFinancialInfo: []
-
-
         }
         this.renderAnalyticsTab = this.renderAnalyticsTab.bind(this)
     }
@@ -81,7 +79,8 @@ class DashboardMain extends Component {
                         dbFinancialInfo: res.info,
                         date: "",
                         amount: "",
-                        description: ""})
+                        description: ""
+                    })
             }
         )
         .catch(err => console.error(err))
@@ -111,6 +110,7 @@ class DashboardMain extends Component {
             currentMonthExpenses = {this.state.dbFinancialInfo}
 
             getFinancialInfo = {this.getFinancialInfo}
+
         />)
     }
 
