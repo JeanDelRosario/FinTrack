@@ -63,11 +63,11 @@ class Analytics extends Component {
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
         }else if(e.target.value === "This Month") {
-
+            console.log(new Date().getMonth())
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
             }).groupbySum('CATEGORY', 'AMOUNT')
-
+            console.log(expenses)
             expensesCard = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getMonth() === new Date().getMonth()
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
@@ -130,7 +130,7 @@ class Analytics extends Component {
 
         }
 
-        
+
         return (
             <div>
                 <div>
