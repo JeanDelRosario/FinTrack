@@ -4,9 +4,10 @@ import './insert-info.css';
 
 function formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+        dUTC = new Date(d.getTime() + d.getTimezoneOffset() * 60000),
+        month = '' + (dUTC.getMonth() + 1),
+        day = '' + dUTC.getDate(),
+        year = dUTC.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
