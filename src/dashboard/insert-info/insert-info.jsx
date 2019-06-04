@@ -35,7 +35,9 @@ render() {
         for(let key of Object.keys(value) ) {
             if( (key !== 'EMAIL') & (key !== 'PRIMARY_INT') ) {
                 if(key === 'DATE') value[key] = formatDate(value[key]);
-                tableBodyItems.push(<div className='table-body-item'>{value[key]}</div>);
+                if(key === 'AMOUNT') value[key] = value[key].toLocaleString();
+                if(value[key] === 'NAN' ) value[key] = "";
+                tableBodyItems.push(<div className={`table-body-item ${key.toLowerCase()}`}>{value[key]}</div>);
             }
         }
         tableBodyItems.push(<button className="table-body-delete"

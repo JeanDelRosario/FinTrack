@@ -131,7 +131,6 @@ class DashboardMain extends Component {
                     </nav>
                     <div>
                         <div className="dashboard-banner">
-                            <p>Hola</p>
                             <button onClick={this.handleLogOut}>Logout</button>
                         </div>
 

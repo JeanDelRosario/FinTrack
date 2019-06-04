@@ -17,17 +17,16 @@ Array.prototype.groupbySum = function(key, value) {
 
 function formatDate(date) {
     var d = new Date(date),
-        month = '' + (d.getUTCMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+        dUTC = new Date(d.getTime() + d.getTimezoneOffset() * 60000),
+        month = '' + (dUTC.getMonth() + 1),
+        day = '' + dUTC.getDate(),
+        year = dUTC.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
 }
-
-
 
 function dateMinus(days) {
     const date = new Date();
@@ -53,7 +52,16 @@ class Analytics extends Component {
     myChartChange = (e) => {
         let expenses, expensesCard;
 
-        if(e.target.value === "Last 30 days") {
+        if(e.target.value === "Last 7 days") {
+            expenses = this.props.currentMonthExpenses.filter((transaction) => {
+                return formatDate(transaction.DATE) >= dateMinus(7)
+            }).groupbySum('CATEGORY', 'AMOUNT')
+
+            expensesCard = this.props.currentMonthExpenses.filter((transaction) => {
+                return formatDate(transaction.DATE) >= dateMinus(7)
+            }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
+
+        } else if(e.target.value === "Last 30 days") {
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return formatDate(transaction.DATE) >= dateMinus(30)
             }).groupbySum('CATEGORY', 'AMOUNT')
@@ -120,7 +128,7 @@ class Analytics extends Component {
         }else if ( this.props.currentMonthExpenses.length !== 0) {
 
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
-                return formatDate(transaction.DATE) >= dateMinus(30)
+                return formatDate(transaction.DATE) >= dateMinus(7)
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
         }
@@ -148,6 +156,7 @@ class Analytics extends Component {
                     {expenses.toLocaleString()}
                 </div>
                 <select onChange={this.myChartChange}>
+                    <option value="Last 7 days">Last 7 days</option>
                     <option value="Last 30 days">Last 30 days</option>
                     <option value="This Month">This Month</option>
                     <option value="This Year">This Year</option>

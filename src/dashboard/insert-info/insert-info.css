@@ -9,7 +9,8 @@
 .table-header,
 .table-body {
     display: grid;
-    grid-template-columns: 100px 200px 150px 500px 50px;
+    grid-template-columns: 100px 200px 150px 200px 50px;
+    margin: auto;
 }
 
 @media only screen and (max-width: 800px) {
@@ -19,5 +20,34 @@
     .form-info {
         display: inline-flex;
         flex-direction: column;
+    }
+    .table-header {
+        display: none;
+    }
+    .table-body {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80%;
+    }
+    .table-body-item {
+        width: 40%;
+    }
+    .table-body-delete {
+        margin-bottom: 25px;
+    }
+    .date {}
+    .amount {
+        color: red;
+        margin-bottom: 15px;
+    }
+    .category {
+        font-weight: bold;
+    }
+    .description {
+        font-size: 0.9em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-bottom: 15px;
     }
 }
