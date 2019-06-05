@@ -28,21 +28,24 @@ class InsertInfo extends Component {
 
 render() {
 
-    const tableBodyItems = [];
+    const tableBodyRows = [];
     const dbFinancialInfo = JSON.parse(JSON.stringify(this.props.dbFinancialInfo));
 
     for(let value of dbFinancialInfo ) {
+        let row = [];
         for(let key of Object.keys(value) ) {
             if( (key !== 'EMAIL') & (key !== 'PRIMARY_INT') ) {
                 if(key === 'DATE') value[key] = formatDate(value[key]);
                 if(key === 'AMOUNT') value[key] = value[key].toLocaleString();
                 if(value[key] === 'NAN' ) value[key] = "";
-                tableBodyItems.push(<div className={`table-body-item ${key.toLowerCase()}`}>{value[key]}</div>);
+                row.push(<div className={`table-body-item ${key.toLowerCase()}`}>{value[key]}</div>);
             }
         }
-        tableBodyItems.push(<button className="table-body-delete"
+        row.push(<button className="table-body-delete"
                             id={value['PRIMARY_INT']}
                             onClick={this.props.deleteItem}>Delete</button>)
+        
+        tableBodyRows.push(<div className='table-body-row'>{row}</div>);
     }
 
     return (
@@ -85,7 +88,7 @@ render() {
                 </div>
 
                 <div className="table-body">
-                    {tableBodyItems}
+                    {tableBodyRows}
                 </div>
             </div>
         </div>
