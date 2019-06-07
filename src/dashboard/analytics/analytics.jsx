@@ -134,10 +134,12 @@ class Analytics extends Component {
         }
 
         if ( this.props.currentMonthExpenses.length !== 0 ) {
-            const groupedCurrentMonthExpenses = this.props.currentMonthExpenses.groupbySum('CATEGORY', 'AMOUNT');
+            const groupedCurrentMonthExpenses = this.props.currentMonthExpenses.filter((transaction) => {
+                return formatDate(transaction.DATE) >= dateMinus(7)
+            }).groupbySum('CATEGORY', 'AMOUNT')
 
             const labels = Object.keys(groupedCurrentMonthExpenses);
-    
+
             myChartData = {
                 datasets: [{
                     data: Object.values(groupedCurrentMonthExpenses),
@@ -147,15 +149,19 @@ class Analytics extends Component {
             }
 
         }
-
+        const options = {
+            legend: {
+                display: false,
+            },
+        };
 
         return (
             <div className="main-div">
-                <div>
+                <div className='card-holder'>
                     <p>Gastos Mes</p>
                     {expenses.toLocaleString()}
                 </div>
-                <select onChange={this.myChartChange}>
+                <select className='chart-filter' onChange={this.myChartChange}>
                     <option value="Last 7 days">Last 7 days</option>
                     <option value="Last 30 days">Last 30 days</option>
                     <option value="This Month">This Month</option>
@@ -165,6 +171,7 @@ class Analytics extends Component {
                     <div id="myChart-container">
                         <Pie
                             data={this.state.myChartData || myChartData}
+                            options={options}
                         />
                     </div>
                 </div>

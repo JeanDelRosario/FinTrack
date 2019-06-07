@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
 
 import './dashboard-main.css';
 
@@ -23,7 +23,7 @@ class DashboardMain extends Component {
         fetch('/api/logout')
             .then(res => {
                 if (res.status === 200) {
-                    this.props.history.push('/signIn');
+                    this.props.history.push('/login');
                 }
             });
     }
@@ -100,6 +100,10 @@ class DashboardMain extends Component {
         this.getFinancialInfo();
     }
 
+    componentDidMount() {
+        if( (this.props.location.pathname === '/dashboard') | (this.props.location.pathname === '/dashboard/') ) document.getElementById('analytics-link').click();
+    }
+
 
 
     renderAnalyticsTab() {
@@ -126,7 +130,7 @@ class DashboardMain extends Component {
                             <Link className="nav-el" to='/dashboard/insert-info'>Insert Info</Link>
                         </div>
                         <div className="nav-el" id="analytics" onClick={this.toggleNavColor}>
-                            <Link className="nav-el" to='/dashboard/analytics'>Analiticas</Link>
+                            <Link className="nav-el" id="analytics-link" to='/dashboard/analytics'>Analiticas</Link>
                         </div>
                     </nav>
                     <div>
@@ -161,4 +165,4 @@ class DashboardMain extends Component {
     }
 }
 
-export default DashboardMain;
+export default withRouter(DashboardMain);

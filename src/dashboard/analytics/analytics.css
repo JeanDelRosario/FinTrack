@@ -7,8 +7,27 @@
     height: 300;
 }
 
-#myChart-container {
+.main-div {
     margin-left: 10%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chart-filter {
+    margin: auto;
+}
+
+.card-holder {
+    text-align: center;
+}
+
+.chart-filter {
+    width: 8em;
+}
+
+#myChart-container {
     height: 50%;
     width: 50%;
     min-width: 370px;
@@ -20,6 +39,7 @@
         margin-left: 0;
     }
     .main-div {
+        margin: 50px auto 0 auto;
         margin-top: 50px;
     }
 }

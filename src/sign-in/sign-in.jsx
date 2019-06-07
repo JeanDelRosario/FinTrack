@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router-dom';
 import './sign-in.css';
 
 class SignIn extends Component {
@@ -24,7 +24,7 @@ class SignIn extends Component {
             .then(res => {
                 console.log(res.status)
                 if (res.status === 200) {
-                    this.props.history.push('/dashboard/analytics');
+                    this.props.history.push('/dashboard');
                 } else {
                     const error = new Error(res.error);
                     throw error;
@@ -45,6 +45,10 @@ class SignIn extends Component {
 
     handleNewUser = () => {
         this.props.history.push('/signUp');
+    }
+
+    componentDidMount() {
+        console.log(this.props)
     }
 
     render() {
@@ -91,4 +95,4 @@ class SignIn extends Component {
         )};
 };
 
-export default SignIn;
+export default withRouter(SignIn);

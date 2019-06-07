@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(express.static('build', { index: false }));
+app.use(express.static('public'));
 
 const connection = mysql.createPool({
     connectionLimit: 10,
