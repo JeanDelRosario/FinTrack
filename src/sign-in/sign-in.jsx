@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import './sign-in.css';
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+
 
 class SignIn extends Component {
     constructor(props) {
@@ -53,46 +54,53 @@ class SignIn extends Component {
 
     render() {
         return (
-
-            <div id='sign-in-container'>
-
-                <div id='logo'>
-                    FinTrack LOGO
-            </div>
-                <div id='inputs'>
-
-                    <form onSubmit={this.handleSubmit}>
-                        <input id='email-input'
+            (
+                <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+                  <Grid.Column style={{ maxWidth: 450 }}>
+                    <Header as='h2' color='teal' textAlign='center'>
+                      <Image src='/logo.png' /> Log-in to your account
+                    </Header>
+                    <Form size='large' onSubmit={this.handleSubmit}>
+                      <Segment stacked>
+                        <Form.Input
+                            fluid icon='user'
+                            iconPosition='left'
+                            placeholder='E-mail address'
+                            id='email-input'
                             type='text'
                             name='email'
-                            placeholder='Email...'
                             value={this.state.email}
                             onChange={this.handleInputChange}
                             required />
 
-                        <input id='password-input'
-                            type='text'
-                            name='password'
-                            placeholder='Password...'
-                            value={this.state.password}
-                            onChange={this.handleInputChange}
-                            required />
-
-                        <div id='buttons'>
-                            <div id='create-new-acc'>
-                                <button type="button" id='create-new-acc-button'
-                                    onClick={this.handleNewUser}>Nuevo Usuario</button>
-                            </div>
-                            <div id='login'>
-                                <button id='sign-in-button'>Login</button>
-                            </div>
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
+                        <Form.Input
+                          fluid
+                          icon='lock'
+                          iconPosition='left'
+                          placeholder='Password'
+                          type='password'
+                          name='password'
+                          value={this.state.password}
+                          onChange={this.handleInputChange}
+                          required
+                        />
+              
+                        <Button color='teal' fluid size='large'>
+                          Login
+                        </Button>
+                      </Segment>
+                    </Form>
+                    <Message>
+                      New to us? <p id='create-new-acc-button'
+                                    onClick={this.handleNewUser}>Sign Up</p>
+                    </Message>
+                  </Grid.Column>
+                </Grid>
+              )
+              
         )};
 };
 
 export default withRouter(SignIn);
+
+

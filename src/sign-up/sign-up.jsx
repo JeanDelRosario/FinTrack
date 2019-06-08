@@ -38,7 +38,7 @@ class SignUp extends Component {
                   } else if (res.message === 'Error') {
                       alert('There was an error, try again later.');
                   } else {
-                    this.props.history.push('/signIn');
+                    this.props.history.push('/login');
                   }
 
                 });
