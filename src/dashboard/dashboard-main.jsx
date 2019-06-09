@@ -148,6 +148,7 @@ class DashboardMain extends Component {
                             Analiticas
                             </Menu.Item>
                     </Sidebar>
+                    <div>
                     <Segment inverted className="mobile-view-segment">
                         <Dropdown text={this.state.email} style={{position: 'fixed', right: '0px'}}>
                             <Dropdown.Menu>
@@ -171,7 +172,7 @@ class DashboardMain extends Component {
                     
 
                     </Segment>
-
+                    </div>
                     <Sidebar.Pusher>
                         <Segment basic>
                             
