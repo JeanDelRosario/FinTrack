@@ -48,6 +48,10 @@ class Analytics extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.activeItemAnalytics();
+    }
+
 
     myChartChange = (e) => {
         let expenses, expensesCard;
@@ -109,13 +113,6 @@ class Analytics extends Component {
 
     }
 
-    componentDidMount () {
-        const analyticsNav = document.getElementById("analytics");
-        const insertNav = document.getElementById("insert");
-
-        analyticsNav.style.background = "yellow";
-        insertNav.style.background = "black";
-    }
 
     render() {
 

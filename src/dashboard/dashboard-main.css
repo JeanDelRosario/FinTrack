@@ -1,3 +1,4 @@
+/*
 .dashboard {
     height: 100%;
 }
@@ -39,5 +40,28 @@
         align-items: center;
         transition: background 0.5s;
         height: 3em;
+    }
+}
+*/
+
+.desktop-view {
+    display: block !important;
+}
+
+.mobile-view {
+    display: none !important;
+}
+
+.mobile-view-segment {
+    margin: 0px !important;
+    padding-bottom: 3px !important;
+}
+
+@media only screen and (max-width: 800px) {
+    .desktop-view {
+        display: none !important;
+    }
+    .mobile-view {
+        display: flex !important;
     }
 }

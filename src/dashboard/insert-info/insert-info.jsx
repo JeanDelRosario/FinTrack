@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Icon } from 'semantic-ui-react'
 import './insert-info.css';
 
 function formatDate(date) {
@@ -17,15 +17,9 @@ function formatDate(date) {
 
 class InsertInfo extends Component {
 
-    componentDidMount () {
-        const analyticsNav = document.getElementById("analytics");
-        const insertNav = document.getElementById("insert");
-
-        analyticsNav.style.background = "black";
-        insertNav.style.background = "yellow";
+    componentDidMount() {
+        this.props.activeItemInsertInfo();
     }
-
-
 render() {
 
     const tableBodyRows = [];
@@ -41,9 +35,9 @@ render() {
                 row.push(<div className={`table-body-item ${key.toLowerCase()}`}>{value[key]}</div>);
             }
         }
-        row.push(<button className="table-body-delete"
+        row.push(<Icon name="delete" className="table-body-delete"
                             id={value['PRIMARY_INT']}
-                            onClick={this.props.deleteItem}>Delete</button>)
+                            onClick={this.props.deleteItem} />)
         
         tableBodyRows.push(<div className='table-body-row'>{row}</div>);
     }

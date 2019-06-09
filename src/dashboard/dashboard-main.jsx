@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { Icon, Menu, Segment, Sidebar, Dropdown } from 'semantic-ui-react'
 
 import './dashboard-main.css';
 
@@ -14,9 +15,19 @@ class DashboardMain extends Component {
             category: "Food and Drinks",
             amount: "",
             description: "",
-            dbFinancialInfo: []
+            dbFinancialInfo: [],
+
+            email: "",
+
+            activeItem: ""
         }
         this.renderAnalyticsTab = this.renderAnalyticsTab.bind(this)
+    }
+    activeItemAnalytics = () => {
+        this.setState({activeItem: "analytics"});
+    }
+    activeItemInsertInfo = () => {
+        this.setState({activeItem: "insert-info"});
     }
 
     handleLogOut = () => {
@@ -37,7 +48,7 @@ class DashboardMain extends Component {
             [inputName]: inputValue
         });
 
-        
+
 
     }
 
@@ -47,18 +58,18 @@ class DashboardMain extends Component {
             method: 'POST',
             body: JSON.stringify(
                 {
-                date: this.state.date,
-                category: this.state.category,
-                amount: this.state.amount,
-                description: this.state.description
+                    date: this.state.date,
+                    category: this.state.category,
+                    amount: this.state.amount,
+                    description: this.state.description
                 }
             ),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then(res => this.getFinancialInfo())
-        
+            .then(res => this.getFinancialInfo())
+
     }
 
     getFinancialInfo = () => {
@@ -69,19 +80,20 @@ class DashboardMain extends Component {
                 'Content-Type': 'application/json'
             }
         })
-        .then(res => res.json())
-        .catch(err => console.error(err))
+            .then(res => res.json())
+            .catch(err => console.error(err))
 
-        .then(res => {
-            this.setState({
-                        dbFinancialInfo: res.info,
-                        date: "",
-                        amount: "",
-                        description: ""
-                    })
+            .then(res => {
+                this.setState({
+                    dbFinancialInfo: res.info,
+                    date: "",
+                    amount: "",
+                    description: "",
+                    email: res.email
+                })
             }
-        )
-        .catch(err => console.error(err))
+            )
+            .catch(err => console.error(err))
     }
 
     deleteItem = (event) => {
@@ -90,9 +102,9 @@ class DashboardMain extends Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({'PRIMARY_INT': event.target.id })
+            body: JSON.stringify({ 'PRIMARY_INT': event.target.id })
         })
-        .then(this.getFinancialInfo())
+            .then(this.getFinancialInfo())
     }
 
     // End of methods for insert-info.jsx
@@ -100,66 +112,93 @@ class DashboardMain extends Component {
         this.getFinancialInfo();
     }
 
-    componentDidMount() {
-        if( (this.props.location.pathname === '/dashboard') | (this.props.location.pathname === '/dashboard/') ) document.getElementById('analytics-link').click();
-    }
-
 
 
     renderAnalyticsTab() {
 
         return (<Analytics
-            currentMonthExpenses = {this.state.dbFinancialInfo}
+            currentMonthExpenses={this.state.dbFinancialInfo}
 
-            getFinancialInfo = {this.getFinancialInfo}
+            getFinancialInfo={this.getFinancialInfo}
 
             history={this.props.history}
+
+            activeItemAnalytics={this.activeItemAnalytics}
 
         />)
     }
 
 
     render() {
+        let activeItem = this.state.activeItem;
 
         return (
             <Router>
 
-                <div className="dashboard">
-                    <nav className="nav-side">
-                        <div className="nav-el" id="insert" onClick={this.toggleNavColor}>
-                            <Link className="nav-el" to='/dashboard/insert-info'>Insert Info</Link>
-                        </div>
-                        <div className="nav-el" id="analytics" onClick={this.toggleNavColor}>
-                            <Link className="nav-el" id="analytics-link" to='/dashboard/analytics'>Analiticas</Link>
-                        </div>
-                    </nav>
-                    <div>
-                        <div className="dashboard-banner">
-                            <button onClick={this.handleLogOut}>Logout</button>
-                        </div>
+                <Sidebar.Pushable as={Segment} style={{ 'height': '100vh' }}>
+                    <Sidebar className="desktop-view"
+                    as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin'
+                    >
+                        <Menu.Item as={Link} to="/dashboard/insert-info" >
+                            <Icon name='keyboard' />
+                            Insert Info
+                            </Menu.Item>
+                        <Menu.Item as={Link} to="/dashboard/analytics">
+                            <Icon name='chart line' />
+                            Analiticas
+                            </Menu.Item>
+                    </Sidebar>
+                    <Segment inverted className="mobile-view-segment">
+                        <Dropdown text={this.state.email} style={{position: 'fixed', right: '0px'}}>
+                            <Dropdown.Menu>
+                                <Dropdown.Item text="Logout" onClick={this.handleLogOut}/>
+                            </Dropdown.Menu>
 
-                        <Route path='/dashboard/insert-info' render={ () =>
-                            (<InsertInfo
-                                date = {this.state.date}
-                                category = {this.state.category}
-                                amount = {this.state.amount}
-                                description = {this.state.description}
-                                dbFinancialInfo = {this.state.dbFinancialInfo}
+                        </Dropdown>
+                    <Menu className="mobile-view" visible inverted color="black"  pointing secondary
+                    >
+                        <Menu.Item as={Link} name="insert-info" active={activeItem === 'insert-info'}
+                        to="/dashboard/insert-info" onClick={this.handleItemClick}>
+                            <Icon name='keyboard' />
+                            Insert Info
+                            </Menu.Item>
+                        <Menu.Item as={Link} name="analytics" active={activeItem === 'analytics'}
+                        to="/dashboard/analytics" onClick={this.handleItemClick}>
+                            <Icon name='chart line' />
+                            Analiticas
+                            </Menu.Item>
+                    </Menu>
+                    
 
-                                handleTyping = {this.handleTyping}
-                                handleSubmit = {this.handleSubmit}
-                                getFinancialInfo = {this.getFinancialInfo}
-                                deleteItem = {this.deleteItem}
+                    </Segment>
 
-                                history={this.props.history}
+                    <Sidebar.Pusher>
+                        <Segment basic>
+                            
+                            <Route path='/dashboard/insert-info' render={() =>
+                                (<InsertInfo
+                                    date={this.state.date}
+                                    category={this.state.category}
+                                    amount={this.state.amount}
+                                    description={this.state.description}
+                                    dbFinancialInfo={this.state.dbFinancialInfo}
+
+                                    handleTyping={this.handleTyping}
+                                    handleSubmit={this.handleSubmit}
+                                    getFinancialInfo={this.getFinancialInfo}
+                                    deleteItem={this.deleteItem}
+
+                                    history={this.props.history}
+
+                                    activeItemInsertInfo={this.activeItemInsertInfo}
+                                />
+                                )}
                             />
-                            )}
-                        />
-                        <Route path='/dashboard/analytics' render={this.renderAnalyticsTab}
-                        />
-
-                    </div>
-                </div>
+                            <Route path='/dashboard/analytics' render={this.renderAnalyticsTab}
+                            />
+                        </Segment>
+                    </Sidebar.Pusher>
+                </Sidebar.Pushable>
             </Router>
         )
     }

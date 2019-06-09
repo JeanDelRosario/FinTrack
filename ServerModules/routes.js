@@ -127,7 +127,7 @@ module.exports = function(app, connection) {
                 email,
                 (error, results) => {
                     if (error) console.error(error);
-                    res.json({ "info": results.slice(0, 20) });
+                    res.json({ "info": results.slice(0, 20), "email": email });
                 });
         })
         .delete(withAuth, function(req, res) {
