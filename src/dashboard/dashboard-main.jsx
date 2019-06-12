@@ -135,7 +135,7 @@ class DashboardMain extends Component {
         return (
             <Router>
 
-                <Sidebar.Pushable as={Segment} style={{ 'height': '100vh' }}>
+                <Sidebar.Pushable as={Segment} style={{ 'height': '100vh', 'overflow-y': 'hidden' }}>
                     <Sidebar className="desktop-view"
                     as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin'
                     >

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon } from 'semantic-ui-react'
+import { Icon, Form, Segment, Button } from 'semantic-ui-react'
 import './insert-info.css';
 
 function formatDate(date) {
@@ -15,79 +15,91 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
+const options = [{ value: "Food and Drinks", text: "Food and Drinks" },
+{ value: "Shopping", text: "Shopping" },
+{ value: "Housing", text: "Housing" },
+{ value: "Transportation", text: "Transportation" },
+{ value: "Vehicle", text: "Vehicle" },
+{ value: "Gas", text: "Gas" },
+{ value: "PC", text: "PC" },
+{ value: "Entertainment", text: "Entertainment" },
+{ value: "Electronics", text: "Electronics" },
+{ value: "Entertainment", text: "Entertainment" },
+{ value: "Financial Expenses", text: "Financial Expenses" },
+{ value: "Investmens", text: "Investmens" },
+{ value: "Other", text: "Other" }]
+
 class InsertInfo extends Component {
 
     componentDidMount() {
         this.props.activeItemInsertInfo();
     }
-render() {
+    render() {
 
-    const tableBodyRows = [];
-    const dbFinancialInfo = JSON.parse(JSON.stringify(this.props.dbFinancialInfo));
+        const tableBodyRows = [];
+        const dbFinancialInfo = JSON.parse(JSON.stringify(this.props.dbFinancialInfo));
 
-    for(let value of dbFinancialInfo ) {
-        let row = [];
-        for(let key of Object.keys(value) ) {
-            if( (key !== 'EMAIL') & (key !== 'PRIMARY_INT') ) {
-                if(key === 'DATE') value[key] = formatDate(value[key]);
-                if(key === 'AMOUNT') value[key] = value[key].toLocaleString();
-                if(value[key] === 'NAN' ) value[key] = "";
-                row.push(<div className={`table-body-item ${key.toLowerCase()}`}>{value[key]}</div>);
+        for (let value of dbFinancialInfo) {
+            let row = [];
+            for (let key of Object.keys(value)) {
+                if ((key !== 'EMAIL') & (key !== 'PRIMARY_INT')) {
+                    if (key === 'DATE') value[key] = formatDate(value[key]);
+                    if (key === 'AMOUNT') value[key] = value[key].toLocaleString();
+                    if (value[key] === 'NAN') value[key] = "";
+                    row.push(<div className={`table-body-item ${key.toLowerCase()}`}>{value[key]}</div>);
+                }
             }
+            row.push(<Icon name="delete" className="table-body-delete"
+                id={value['PRIMARY_INT']}
+                onClick={this.props.deleteItem} />)
+
+            tableBodyRows.push(<div className='table-body-row'>{row}</div>);
         }
-        row.push(<Icon name="delete" className="table-body-delete"
-                            id={value['PRIMARY_INT']}
-                            onClick={this.props.deleteItem} />)
-        
-        tableBodyRows.push(<div className='table-body-row'>{row}</div>);
+
+        return (
+            <div className="insert-info">
+                <div id="c">
+                    <Form className="form-info" onSubmit={this.props.handleSubmit}>
+                        <Segment >
+                            <Form.Group widths='equal'>
+                                <Form.Input onChange={this.props.handleTyping}
+                                    icon='calendar' iconPosition='left'
+                                    type="date" name="date" placeholder="Date..."
+                                    value={this.props.date} required />
+                                <Form.Select onChange={this.props.handleTyping}
+                                    icon='columns' iconPosition='left'
+                                    name="category"
+                                    placeholder="Expense category" options={options} required />
+
+                                <Form.Input onChange={this.props.handleTyping}
+                                    icon="money bill alternate" iconPosition="left"
+                                    type="number" name="amount" placeholder="Amount"
+                                    value={this.props.amount} required />
+                            </Form.Group>
+                            <Form.Input onChange={this.props.handleTyping}
+                                icon="pencil alternate" iconPosition="left"
+                                type="text" name="description"
+                                value={this.props.description} placeholder="Description" />
+
+                            <Button>Submit</Button>
+                        </Segment>
+                    </Form>
+                </div>
+                <div className="table">
+                    <div className="table-header">
+                        <div className="table-header-item">Fecha</div>
+                        <div className="table-header-item">Transaction</div>
+                        <div className="table-header-item">Amount</div>
+                        <div className="table-header-item">Description</div>
+                    </div>
+
+                    <div className="table-body">
+                        {tableBodyRows}
+                    </div>
+                </div>
+            </div>
+        )
     }
-
-    return (
-        <div className="insert-info">
-            <div id="c">
-            <form className="form-info" onSubmit={this.props.handleSubmit}>
-                <input onChange={this.props.handleTyping}
-                    type="date" name="date" placeholder="Date..."
-                    value={this.props.date} required/>
-                 <select onChange={this.props.handleTyping} name="category" required>
-                    <option value="Food and Drinks" selected>Food and Drinks</option>
-                    <option value="Shopping">Shopping</option>
-                    <option value="Housing">Housing</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Vehicle">Vehicle</option>
-                    <option value="Gas">Gas</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="PC">PC</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Financial Expenses">Financial Expenses</option>
-                    <option value="Investmens">Investmens</option>
-                    <option value="Other">Other</option>
-                </select> 
-                <input onChange={this.props.handleTyping}
-                    type="number" name="amount" placeholder="Amount..."
-                    value={this.props.amount} required />
-                <input onChange={this.props.handleTyping}
-                    type="text" name="description"
-                    value={this.props.description} placeholder="Description..." />
-
-                <button>Submit</button>
-            </form>
-            </div>
-            <div className="table">
-                <div className="table-header">
-                    <div className="table-header-item">Fecha</div>
-                    <div className="table-header-item">Transaction</div>
-                    <div className="table-header-item">Amount</div>
-                    <div className="table-header-item">Description</div>
-                </div>
-
-                <div className="table-body">
-                    {tableBodyRows}
-                </div>
-            </div>
-        </div>
-    )
-}
 }
 
 export default InsertInfo;

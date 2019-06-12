@@ -1,0 +1,7 @@
+{
+    "root": "buid/",
+    "clen_urls": false,
+    "routes": {
+        "/**": "index.html"
+    }
+}

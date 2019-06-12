@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './analytics.css';
 import {Pie} from 'react-chartjs-2';
 
+import { Form, Segment } from 'semantic-ui-react'
+
 // eslint-disable-next-line no-extend-native
 Array.prototype.groupbySum = function(key, value) {
     return(
@@ -38,6 +40,13 @@ function dateMinus(days) {
 
 const defaultColors = ['#3366CC','#DC3912','#FF9900','#109618','#990099','#3B3EAC','#0099C6','#DD4477','#66AA00','#B82E2E','#316395','#994499','#22AA99','#AAAA11','#6633CC','#E67300','#8B0707','#329262','#5574A6','#3B3EAC']
 
+const optionsForm = [
+    {value:"Last 7 days", text:"Last 7 days"},
+    {value:"Last 30 days", text:"Last 30 days"},
+    {value:"This Month", text:"This Month"},
+    {value:"This Year", text:"This Year"}
+]
+
 class Analytics extends Component {
 
     constructor(props) {
@@ -56,7 +65,7 @@ class Analytics extends Component {
     myChartChange = (e) => {
         let expenses, expensesCard;
 
-        if(e.target.value === "Last 7 days") {
+        if(e.target.innerText === "Last 7 days") {
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return formatDate(transaction.DATE) >= dateMinus(7)
             }).groupbySum('CATEGORY', 'AMOUNT')
@@ -65,7 +74,7 @@ class Analytics extends Component {
                 return formatDate(transaction.DATE) >= dateMinus(7)
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
-        } else if(e.target.value === "Last 30 days") {
+        } else if(e.target.innerText === "Last 30 days") {
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return formatDate(transaction.DATE) >= dateMinus(30)
             }).groupbySum('CATEGORY', 'AMOUNT')
@@ -74,7 +83,7 @@ class Analytics extends Component {
                 return formatDate(transaction.DATE) >= dateMinus(30)
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
-        }else if(e.target.value === "This Month") {
+        }else if(e.target.innerText === "This Month") {
 
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 
@@ -87,7 +96,7 @@ class Analytics extends Component {
             }).reduce((acc, curr) => acc + curr.AMOUNT, 0)
 
 
-        }else if(e.target.value === "This Year") {
+        }else if(e.target.innerText === "This Year") {
             expenses = this.props.currentMonthExpenses.filter((transaction) => {
                 return new Date(transaction.DATE).getFullYear() === new Date().getFullYear()
             }).groupbySum('CATEGORY', 'AMOUNT')
@@ -154,16 +163,14 @@ class Analytics extends Component {
 
         return (
             <div className="main-div">
-                <div className='card-holder'>
-                    <p>Gastos Mes</p>
+                <Form.Select className='chart-filter' onChange={this.myChartChange}
+                options={optionsForm} defaultValue={"Last 7 days"}/>
+
+                <Segment className='card-holder'>
+                    <p>Gastos</p>
                     {expenses.toLocaleString()}
-                </div>
-                <select className='chart-filter' onChange={this.myChartChange}>
-                    <option value="Last 7 days">Last 7 days</option>
-                    <option value="Last 30 days">Last 30 days</option>
-                    <option value="This Month">This Month</option>
-                    <option value="This Year">This Year</option>
-                </select>
+                </Segment>
+                
                 <div className="charts">
                     <div id="myChart-container">
                         <Pie
