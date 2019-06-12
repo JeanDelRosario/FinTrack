@@ -1,60 +1,9 @@
-/*
-.dashboard {
-    height: 100%;
-}
-
-.dashboard-banner {
-    position: fixed;
-    top: 0;
-    right: 0;
-}
-
-.nav-side {
-    position: fixed;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    width: 10%;
-    height: 100vh;
-    background: black;
-}
-
-.nav-el {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.5s;
-    height: 3em;
-}
-
-@media only screen and (max-width: 800px) {
-    .nav-side {
-        flex-direction: row;
-        justify-content: space-evenly;
-        width: 100vw;
-        height: 50px;
-    }
-    .nav-el {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        transition: background 0.5s;
-        height: 3em;
-    }
-}
-*/
-
-html,
-body {
-    overflow: scroll;
-    overflow-y: hidden;
-}
-
 ::-webkit-scrollbar {
-    width: 0px;
-    /* Remove scrollbar space */
-    background: transparent;
-    /* Optional: just make scrollbar invisible */
+    display: none;
+}
+
+ ::-webkit-scrollbar-button {
+    display: none;
 }
 
 

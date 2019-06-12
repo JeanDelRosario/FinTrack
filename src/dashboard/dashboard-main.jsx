@@ -24,10 +24,10 @@ class DashboardMain extends Component {
         this.renderAnalyticsTab = this.renderAnalyticsTab.bind(this)
     }
     activeItemAnalytics = () => {
-        this.setState({activeItem: "analytics"});
+        this.setState({ activeItem: "analytics" });
     }
     activeItemInsertInfo = () => {
-        this.setState({activeItem: "insert-info"});
+        this.setState({ activeItem: "insert-info" });
     }
 
     handleLogOut = () => {
@@ -135,9 +135,9 @@ class DashboardMain extends Component {
         return (
             <Router>
 
-                <Sidebar.Pushable as={Segment} style={{ 'height': '100vh', 'overflow-y': 'hidden' }}>
+                <Sidebar.Pushable as={Segment} style={{ 'height': '100vh'}}>
                     <Sidebar className="desktop-view"
-                    as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin'
+                        as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin'
                     >
                         <Menu.Item as={Link} to="/dashboard/insert-info" >
                             <Icon name='keyboard' />
@@ -145,37 +145,37 @@ class DashboardMain extends Component {
                             </Menu.Item>
                         <Menu.Item as={Link} to="/dashboard/analytics">
                             <Icon name='chart line' />
-                            Analiticas
+                            Analytics
                             </Menu.Item>
                     </Sidebar>
                     <div>
-                    <Segment inverted className="mobile-view-segment">
-                        <Dropdown text={this.state.email} style={{position: 'fixed', right: '0px'}}>
-                            <Dropdown.Menu>
-                                <Dropdown.Item text="Logout" onClick={this.handleLogOut}/>
-                            </Dropdown.Menu>
+                        <Segment inverted className="mobile-view-segment">
+                            <Dropdown text={this.state.email} style={{ position: 'fixed', right: '0px' }}>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item text="Logout" onClick={this.handleLogOut} />
+                                </Dropdown.Menu>
 
-                        </Dropdown>
-                    <Menu className="mobile-view" visible inverted color="black"  pointing secondary
-                    >
-                        <Menu.Item as={Link} name="insert-info" active={activeItem === 'insert-info'}
-                        to="/dashboard/insert-info" onClick={this.handleItemClick}>
-                            <Icon name='keyboard' />
-                            Insert Info
+                            </Dropdown>
+                            <Menu className="mobile-view" visible inverted color="black" pointing secondary
+                            >
+                                <Menu.Item as={Link} name="insert-info" active={activeItem === 'insert-info'}
+                                    to="/dashboard/insert-info" onClick={this.handleItemClick}>
+                                    <Icon name='keyboard' />
+                                    Insert Info
                             </Menu.Item>
-                        <Menu.Item as={Link} name="analytics" active={activeItem === 'analytics'}
-                        to="/dashboard/analytics" onClick={this.handleItemClick}>
-                            <Icon name='chart line' />
-                            Analiticas
+                                <Menu.Item as={Link} name="analytics" active={activeItem === 'analytics'}
+                                    to="/dashboard/analytics" onClick={this.handleItemClick}>
+                                    <Icon name='chart line' />
+                                    Analiticas
                             </Menu.Item>
-                    </Menu>
-                    
+                            </Menu>
 
-                    </Segment>
+
+                        </Segment>
                     </div>
                     <Sidebar.Pusher>
                         <Segment basic>
-                            
+
                             <Route path='/dashboard/insert-info' render={() =>
                                 (<InsertInfo
                                     date={this.state.date}
