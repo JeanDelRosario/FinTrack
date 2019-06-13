@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 
 class RedirectRoute extends Component {
 
-    componentWillMount() {
-        if(this.props.location.pathname === '/') this.props.history.push('/dashboard/analytics');
+    componentDidMount() {
+        if((this.props.location.pathname === '/') | (this.props.location.pathname === '')) this.props.history.push('/dashboard/analytics');
     }
     render() {
         return (<span style={{width: "0px", margin: "0px"}}></span>)
