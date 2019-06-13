@@ -148,11 +148,7 @@ module.exports = function(app, connection) {
     })
 
     app.get('*', (req, res, next) => {
-        if (!req.url.endsWith('/')) {
-            res.redirect(301, req.url + '/');
-        } else {
-            res.sendFile(path.resolve('build/index.html'));
-        }
+        res.sendFile(path.resolve('build/index.html'));
     });
 
 }

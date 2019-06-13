@@ -134,20 +134,20 @@ class DashboardMain extends Component {
 
         return (
             <Router>
-                
-                <Sidebar.Pushable as={Segment} style={{ 'height': '100vh'}}>
-                <Segment className="desktop-view" inverted>
-                <Dropdown  text={this.state.email} style={{ position: 'fixed', right: '0px' }}>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item text="Logout" onClick={this.handleLogOut} />
-                                </Dropdown.Menu>
 
-                            </Dropdown>
-                            </Segment>
+                <Sidebar.Pushable as={Segment} style={{ 'height': '100vh', "margin": "0px" }}>
+                    <Segment className="desktop-view" inverted>
+                        <Dropdown text={this.state.email} style={{ position: 'fixed', right: '0px' }}>
+                            <Dropdown.Menu>
+                                <Dropdown.Item text="Logout" onClick={this.handleLogOut} />
+                            </Dropdown.Menu>
+
+                        </Dropdown>
+                    </Segment>
                     <Sidebar className="desktop-view"
                         as={Menu} animation='overlay' icon='labeled' inverted vertical visible width='thin'
                     >
-                        
+
                         <Menu.Item as={Link} to="/dashboard/insert-info" >
                             <Icon name='keyboard' />
                             Insert Info

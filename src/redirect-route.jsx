@@ -7,7 +7,7 @@ class RedirectRoute extends Component {
         if(this.props.location.pathname === '/') this.props.history.push('/dashboard/analytics');
     }
     render() {
-        return (<div></div>)
+        return (<span style={{width: "0px", margin: "0px"}}></span>)
     }
 }
 

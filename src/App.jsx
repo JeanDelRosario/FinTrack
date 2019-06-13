@@ -11,14 +11,17 @@ import RedirectRoute from './redirect-route';
 
 class App extends Component {
 
+
     render() {
         
         
         return (
         <div className signIn= "App" >
             
+
             <Router >
                 <div>
+                <RedirectRoute />
                 <Route exact path= '/'
                 component = { RedirectRoute } />
                 <Route path = '/login'
