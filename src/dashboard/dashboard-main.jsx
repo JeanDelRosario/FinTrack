@@ -40,16 +40,11 @@ class DashboardMain extends Component {
     }
 
     // Methods for insert-info.jsx
-    handleTyping = (event) => {
+    handleTyping = (e, {value, name}) => {
 
-        const inputName = event.target.name;
-        const inputValue = event.target.value;
         this.setState({
-            [inputName]: inputValue
+            [name]: value
         });
-
-
-
     }
 
     handleSubmit = (event) => {

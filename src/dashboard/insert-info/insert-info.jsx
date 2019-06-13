@@ -24,7 +24,6 @@ const options = [{ value: "Food and Drinks", text: "Food and Drinks" },
 { value: "PC", text: "PC" },
 { value: "Entertainment", text: "Entertainment" },
 { value: "Electronics", text: "Electronics" },
-{ value: "Entertainment", text: "Entertainment" },
 { value: "Financial Expenses", text: "Financial Expenses" },
 { value: "Investmens", text: "Investmens" },
 { value: "Other", text: "Other" }]
