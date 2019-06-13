@@ -13,27 +13,25 @@ class App extends Component {
 
 
     render() {
-        
-        
-        return (
-        <div className signIn= "App" >
-            
 
-            <Router >
-                <div>
-                <RedirectRoute />
-                <Route exact path= '/'
-                component = { RedirectRoute } />
-                <Route path = '/login'
-                component = { SignIn }/>
-                <Route path = '/signUp'
-                component = { SignUp }/>
-                <Route path = '/dashboard'
-                component = { withAuth(DashboardMain) }
-                />
-                </div>
-            </Router>
-        </div>
+
+        return (
+            <div>
+                <Router >
+                    <div>
+                        <RedirectRoute />
+                        <Route exact path='/'
+                            component={RedirectRoute} />
+                        <Route path='/login'
+                            component={SignIn} />
+                        <Route path='/signUp'
+                            component={SignUp} />
+                        <Route path='/dashboard'
+                            component={withAuth(DashboardMain)}
+                        />
+                    </div>
+                </Router>
+            </div>
         );
     }
 }
