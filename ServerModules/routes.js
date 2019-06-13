@@ -148,6 +148,7 @@ module.exports = function(app, connection) {
     })
 
     app.get('*', (req, res, next) => {
+        console.log(path.resolve('build/index.html'))
         res.sendFile(path.resolve('build/index.html'));
     });
 

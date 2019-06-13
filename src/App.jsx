@@ -19,7 +19,6 @@ class App extends Component {
             <div>
                 <Router >
                     <div>
-                        <RedirectRoute />
                         <Route exact path='/'
                             component={RedirectRoute} />
                         <Route path='/login'
