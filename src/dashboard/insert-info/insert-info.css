@@ -1,36 +1,14 @@
 .insert-info {
-    margin-left: 10%;
-}
-
-.table-header,
-.table-body-row {
-    display: grid;
-    grid-template-columns: 100px 200px 150px 200px 50px;
-    margin: auto;
+    margin-left: 11%;
 }
 
 @media only screen and (max-width: 800px) {
-    .insert-info {
-        margin-top: 50px;
-    }
     .table-header {
-        display: none;
+        display: none !important;
     }
-    .table-body {
-        display: block;
+    .insert-info {
+        margin-left: 0;
     }
-    .table-body-row {
-        display: flex;
-        flex-wrap: wrap;
-        width: 80%;
-    }
-    .table-body-item {
-        width: 40%;
-    }
-    .table-body-delete {
-        margin-bottom: 25px;
-    }
-    .date {}
     .amount {
         color: red;
         margin-bottom: 15px;

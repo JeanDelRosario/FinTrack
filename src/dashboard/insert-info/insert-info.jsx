@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Form, Segment, Button } from 'semantic-ui-react'
+import { Icon, Form, Segment, Button, Table } from 'semantic-ui-react'
 import './insert-info.css';
 
 function formatDate(date) {
@@ -45,14 +45,14 @@ class InsertInfo extends Component {
                     if (key === 'DATE') value[key] = formatDate(value[key]);
                     if (key === 'AMOUNT') value[key] = value[key].toLocaleString();
                     if (value[key] === 'NAN') value[key] = "";
-                    row.push(<div className={`table-body-item ${key.toLowerCase()}`}>{value[key]}</div>);
+                    row.push(<Table.Cell className={`${key.toLowerCase()}`}>{value[key]}</Table.Cell>);
                 }
             }
             row.push(<Icon name="delete" className="table-body-delete"
                 id={value['PRIMARY_INT']}
                 onClick={this.props.deleteItem} />)
 
-            tableBodyRows.push(<div className='table-body-row'>{row}</div>);
+            tableBodyRows.push(<Table.Row>{row}</Table.Row>);
         }
 
         return (
@@ -84,18 +84,18 @@ class InsertInfo extends Component {
                         </Segment>
                     </Form>
                 </div>
-                <div className="table">
-                    <div className="table-header">
-                        <div className="table-header-item">Fecha</div>
-                        <div className="table-header-item">Transaction</div>
-                        <div className="table-header-item">Amount</div>
-                        <div className="table-header-item">Description</div>
-                    </div>
+                <Table>
+                    <Table.Header className="table-header">
+                        <Table.HeaderCell className="table-header-item">Fecha</Table.HeaderCell>
+                        <Table.HeaderCell className="table-header-item">Transaction</Table.HeaderCell>
+                        <Table.HeaderCell className="table-header-item">Amount</Table.HeaderCell>
+                        <Table.HeaderCell className="table-header-item">Description</Table.HeaderCell>
+                    </Table.Header>
 
-                    <div className="table-body">
+                    <Table.Body>
                         {tableBodyRows}
-                    </div>
-                </div>
+                    </Table.Body>
+                </Table>
             </div>
         )
     }

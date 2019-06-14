@@ -58,7 +58,7 @@ class SignIn extends Component {
                 <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                   <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' color='teal' textAlign='center'>
-                      <Image src='/logo.png' /> Log-in to your account
+                      Log-in to your FinTrack account
                     </Header>
                     <Form size='large' onSubmit={this.handleSubmit}>
                       <Segment stacked>
@@ -91,7 +91,7 @@ class SignIn extends Component {
                       </Segment>
                     </Form>
                     <Message>
-                      New to us? <p id='create-new-acc-button'
+                      New to us? <p style={{"color": "teal", "cursor": "pointer"}}
                                     onClick={this.handleNewUser}>Sign Up</p>
                     </Message>
                   </Grid.Column>
