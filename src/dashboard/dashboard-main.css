@@ -14,7 +14,7 @@
 }
 
 .desktop-view {
-    display: block;
+    display: fixed !important;
     height: 3em;
 }
 

@@ -84,6 +84,7 @@ class InsertInfo extends Component {
                         </Segment>
                     </Form>
                 </div>
+                <div style={{'margin-top': '5px'}}>
                 <Table>
                     <Table.Header className="table-header">
                         <Table.HeaderCell className="table-header-item">Fecha</Table.HeaderCell>
@@ -96,6 +97,7 @@ class InsertInfo extends Component {
                         {tableBodyRows}
                     </Table.Body>
                 </Table>
+                </div>
             </div>
         )
     }
